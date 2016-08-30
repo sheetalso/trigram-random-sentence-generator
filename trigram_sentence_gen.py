@@ -20,7 +20,7 @@ def get_trigrams(path):
     with open(path, 'r') as f:
         raw_text = f.read()
 
-    text = " ".join(cleanse(raw_text.split()))
+    text = " ".join(cleanse(raw_text.split()))   # convert contractions to form that's easier to tokenize
     words = word_tokenize(text)
     return [gram for gram in trigrams(words)]
 
@@ -28,7 +28,7 @@ def get_trigrams(path):
 def generate_using_trigrams(starts, trigram_transitions):
     """generates a random sentence"""
     current = random.choice(starts)   # choose a random starting word
-    prev = "."   # and precede it with punctuation
+    prev = "."                        # precede it with punctuation
     result = [current]
     while True:
         next_word_candidates = trigram_transitions[(prev, current)]
@@ -47,13 +47,13 @@ def make_paragraph(gen_fn, grams):
     starts = []
 
     for prev, current, next in grams:
-        if prev == ".":              # if previous word was a period
-            starts.append(current)   # then this was a start word
+        if prev == ".":                # if previous word was a period
+            starts.append(current)     # then this was a start word
 
         trigram_transitions[(prev, current)].append(next)
 
     text = ""
-    for i in xrange(random.randrange(3, 12)):    # produces variable length sentences
+    for i in xrange(random.randrange(3, 12)):      # produces variable length sentences
         text += generate_using_trigrams(starts, trigram_transitions)
 
     return text.replace(" .", ". ") \
