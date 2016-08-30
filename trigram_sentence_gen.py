@@ -63,7 +63,7 @@ def make_paragraph(gen_fn, grams):
                .replace(" 's", "'s") \
                .replace(" 'd", "'d") \
                .replace(" ''", "") \
-               .replace(" ..", "...")  # the replacements are ugly and could obviously be done better, but handles some edge cases
+               .replace(" ..", "...")   # the replacements are ugly and could obviously be done better, but handles some edge cases
 
 if __name__ == "__main__":
     path = "<path to your text file>"
